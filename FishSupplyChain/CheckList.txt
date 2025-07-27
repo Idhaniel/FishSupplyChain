@@ -1,0 +1,16 @@
+Make sure shipment Ids are never negative
+Handle contract errors
+Handle contract events
+Make roles text-based
+Add more authentication schemes
+Allow for user profile pictures
+Confirm password
+Reset password
+Verify Email
+Add roles to user tables
+Set up MQTT Client and Broker
+Securely save private keys
+Link to IPFS
+QR Code
+Clean and organize streams from sensors
+Web socket connections???

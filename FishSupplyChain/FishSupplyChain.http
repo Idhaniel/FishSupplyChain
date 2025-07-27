@@ -1,0 +1,102 @@
+@FishSupplyChain_HostAddress = http://localhost:5137
+
+// Sign Up 
+POST {{FishSupplyChain_HostAddress}}/api/auth/signup
+Accept: application/json
+Content-Type: application/json
+{
+  "email": "daniel@dev.com",
+  "password": "daniel",
+  "firstName": "daniel",
+  "lastName": "dev"
+}
+###
+
+// Sign In 
+POST {{FishSupplyChain_HostAddress}}/api/auth/signin
+Accept: application/json
+Content-Type: application/json
+{
+  "email": "benita@gmail.com",
+  "password": "benita"
+}
+###
+
+// Assign Role
+POST {{FishSupplyChain_HostAddress}}/api/contract/assign
+Accept: application/json
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1laWQiOiIzIiwiZW1haWwiOiJiZW5pdGFAZ21haWwuY29tIiwibmJmIjoxNzUzNTY1MzA1LCJleHAiOjE3NTM1NjcxMDUsImlhdCI6MTc1MzU2NTMwNSwiaXNzIjoiaHR0cDovL2xvY2FsaG9zdDo1MTM3IiwiYXVkIjoiaHR0cDovL2xvY2FsaG9zdDo1MTM3In0.XExBv79GdAyDmhtceSjbdw8cNpeFW9sG1c8jSenVzoA
+
+{
+  "participant": "0x3C44CdDdB6a900fa2b585dd299e03d12FA4293BC",
+  "roleInt": "2"
+}
+
+###
+
+// Record shipment
+POST {{FishSupplyChain_HostAddress}}/api/contract/record
+Accept: application/json
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1laWQiOiI1IiwiZW1haWwiOiJsdW1hbmlAZ21haWwuY29tIiwibmJmIjoxNzUzNTY0ODEzLCJleHAiOjE3NTM1NjY2MTMsImlhdCI6MTc1MzU2NDgxMywiaXNzIjoiaHR0cDovL2xvY2FsaG9zdDo1MTM3IiwiYXVkIjoiaHR0cDovL2xvY2FsaG9zdDo1MTM3In0.zpsmcqQclVUqH-4PhK5YqxvCpW1DRM4vUU0sTxTl1ZQ
+
+{
+  "shipmentHash": "0x736869706d656e74303031000000000000000000000000000000000000000000",
+  "price": 4
+}
+
+###
+
+// Pay for shipment
+POST {{FishSupplyChain_HostAddress}}/api/contract/pay
+Accept: application/json
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1laWQiOiIzIiwiZW1haWwiOiJiZW5pdGFAZ21haWwuY29tIiwibmJmIjoxNzUzNTY1MzA1LCJleHAiOjE3NTM1NjcxMDUsImlhdCI6MTc1MzU2NTMwNSwiaXNzIjoiaHR0cDovL2xvY2FsaG9zdDo1MTM3IiwiYXVkIjoiaHR0cDovL2xvY2FsaG9zdDo1MTM3In0.XExBv79GdAyDmhtceSjbdw8cNpeFW9sG1c8jSenVzoA
+
+{
+  "shipmentId": 1,
+  "amount": 4
+}
+
+###
+
+// Get Count of Shipment
+GET {{FishSupplyChain_HostAddress}}/api/contract/shipment
+Accept: application/json
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1laWQiOiI1IiwiZW1haWwiOiJsdW1hbmlAZ21haWwuY29tIiwibmJmIjoxNzUzNTY0ODEzLCJleHAiOjE3NTM1NjY2MTMsImlhdCI6MTc1MzU2NDgxMywiaXNzIjoiaHR0cDovL2xvY2FsaG9zdDo1MTM3IiwiYXVkIjoiaHR0cDovL2xvY2FsaG9zdDo1MTM3In0.zpsmcqQclVUqH-4PhK5YqxvCpW1DRM4vUU0sTxTl1ZQ
+
+###
+
+// Get Hash of Shipment
+GET {{FishSupplyChain_HostAddress}}/api/contract/shipment/hash/1
+Accept: application/json
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1laWQiOiI1IiwiZW1haWwiOiJsdW1hbmlAZ21haWwuY29tIiwibmJmIjoxNzUzNTY0ODEzLCJleHAiOjE3NTM1NjY2MTMsImlhdCI6MTc1MzU2NDgxMywiaXNzIjoiaHR0cDovL2xvY2FsaG9zdDo1MTM3IiwiYXVkIjoiaHR0cDovL2xvY2FsaG9zdDo1MTM3In0.zpsmcqQclVUqH-4PhK5YqxvCpW1DRM4vUU0sTxTl1ZQ
+
+###
+
+// Get Price of Shipment
+GET {{FishSupplyChain_HostAddress}}/api/contract/shipment/price/1
+Accept: application/json
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1laWQiOiI1IiwiZW1haWwiOiJsdW1hbmlAZ21haWwuY29tIiwibmJmIjoxNzUzNTY0ODEzLCJleHAiOjE3NTM1NjY2MTMsImlhdCI6MTc1MzU2NDgxMywiaXNzIjoiaHR0cDovL2xvY2FsaG9zdDo1MTM3IiwiYXVkIjoiaHR0cDovL2xvY2FsaG9zdDo1MTM3In0.zpsmcqQclVUqH-4PhK5YqxvCpW1DRM4vUU0sTxTl1ZQ
+
+###
+
+// Get Shipment
+GET {{FishSupplyChain_HostAddress}}/api/contract/shipment/1
+Accept: application/json
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1laWQiOiI1IiwiZW1haWwiOiJsdW1hbmlAZ21haWwuY29tIiwibmJmIjoxNzUzNTY0ODEzLCJleHAiOjE3NTM1NjY2MTMsImlhdCI6MTc1MzU2NDgxMywiaXNzIjoiaHR0cDovL2xvY2FsaG9zdDo1MTM3IiwiYXVkIjoiaHR0cDovL2xvY2FsaG9zdDo1MTM3In0.zpsmcqQclVUqH-4PhK5YqxvCpW1DRM4vUU0sTxTl1ZQ
+
+###
+
+// Get Role
+GET {{FishSupplyChain_HostAddress}}/api/contract/role/0x3C44CdDdB6a900fa2b585dd299e03d12FA4293BC
+Accept: application/json
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1laWQiOiI1IiwiZW1haWwiOiJsdW1hbmlAZ21haWwuY29tIiwibmJmIjoxNzUzNTY0ODEzLCJleHAiOjE3NTM1NjY2MTMsImlhdCI6MTc1MzU2NDgxMywiaXNzIjoiaHR0cDovL2xvY2FsaG9zdDo1MTM3IiwiYXVkIjoiaHR0cDovL2xvY2FsaG9zdDo1MTM3In0.zpsmcqQclVUqH-4PhK5YqxvCpW1DRM4vUU0sTxTl1ZQ
+
+###

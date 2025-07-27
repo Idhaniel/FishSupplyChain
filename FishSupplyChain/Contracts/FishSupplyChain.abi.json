@@ -1,0 +1,352 @@
+[
+  {
+    "inputs": [],
+    "stateMutability": "nonpayable",
+    "type": "constructor"
+  },
+  {
+    "inputs": [],
+    "name": "SupplyChain__AdminCannotAssignSelf",
+    "type": "error"
+  },
+  {
+    "inputs": [],
+    "name": "SupplyChain__AlreadyOwner",
+    "type": "error"
+  },
+  {
+    "inputs": [],
+    "name": "SupplyChain__AlreadyPaid",
+    "type": "error"
+  },
+  {
+    "inputs": [],
+    "name": "SupplyChain__DirectETHNotAllowed",
+    "type": "error"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "expected",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "received",
+        "type": "uint256"
+      }
+    ],
+    "name": "SupplyChain__IncorrectPayment",
+    "type": "error"
+  },
+  {
+    "inputs": [],
+    "name": "SupplyChain__InvalidFunctionCall",
+    "type": "error"
+  },
+  {
+    "inputs": [],
+    "name": "SupplyChain__InvalidRole",
+    "type": "error"
+  },
+  {
+    "inputs": [],
+    "name": "SupplyChain__OnlyAdmin",
+    "type": "error"
+  },
+  {
+    "inputs": [],
+    "name": "SupplyChain__ParticipantNotAllowed",
+    "type": "error"
+  },
+  {
+    "inputs": [],
+    "name": "SupplyChain__PaymentTransferFailed",
+    "type": "error"
+  },
+  {
+    "inputs": [],
+    "name": "SupplyChain__ShipmentNotExist",
+    "type": "error"
+  },
+  {
+    "inputs": [],
+    "name": "SupplyChain__ZeroAddressNotAllowed",
+    "type": "error"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": true,
+        "internalType": "address",
+        "name": "Participant",
+        "type": "address"
+      },
+      {
+        "indexed": true,
+        "internalType": "enum SupplyChain.SupplyChainRole",
+        "name": "Role",
+        "type": "uint8"
+      }
+    ],
+    "name": "ParticipantAssignedRole",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": true,
+        "internalType": "uint256",
+        "name": "ShipmentId",
+        "type": "uint256"
+      },
+      {
+        "indexed": true,
+        "internalType": "address",
+        "name": "NewOwner",
+        "type": "address"
+      },
+      {
+        "indexed": true,
+        "internalType": "address",
+        "name": "OldOwner",
+        "type": "address"
+      },
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "Price",
+        "type": "uint256"
+      }
+    ],
+    "name": "ShipmentPaidAndTransferred",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": true,
+        "internalType": "uint256",
+        "name": "ShipmentId",
+        "type": "uint256"
+      },
+      {
+        "indexed": true,
+        "internalType": "address",
+        "name": "CreatedBy",
+        "type": "address"
+      },
+      {
+        "indexed": true,
+        "internalType": "bytes32",
+        "name": "ShipmentHash",
+        "type": "bytes32"
+      },
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "Price",
+        "type": "uint256"
+      }
+    ],
+    "name": "ShipmentRecorded",
+    "type": "event"
+  },
+  {
+    "stateMutability": "payable",
+    "type": "fallback"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "participant",
+        "type": "address"
+      },
+      {
+        "internalType": "uint256",
+        "name": "roleInt",
+        "type": "uint256"
+      }
+    ],
+    "name": "assignSupplyChainRole",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "participant",
+        "type": "address"
+      }
+    ],
+    "name": "getParticipantRole",
+    "outputs": [
+      {
+        "internalType": "enum SupplyChain.SupplyChainRole",
+        "name": "",
+        "type": "uint8"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "shipmentId",
+        "type": "uint256"
+      }
+    ],
+    "name": "getShipment",
+    "outputs": [
+      {
+        "components": [
+          {
+            "internalType": "uint256",
+            "name": "Id",
+            "type": "uint256"
+          },
+          {
+            "internalType": "bytes32",
+            "name": "ShipmentHash",
+            "type": "bytes32"
+          },
+          {
+            "internalType": "uint256",
+            "name": "Price",
+            "type": "uint256"
+          },
+          {
+            "internalType": "address",
+            "name": "CreatedBy",
+            "type": "address"
+          },
+          {
+            "internalType": "address",
+            "name": "CurrentOwner",
+            "type": "address"
+          },
+          {
+            "internalType": "address",
+            "name": "PreviousOwner",
+            "type": "address"
+          },
+          {
+            "internalType": "enum SupplyChain.SupplyChainRole",
+            "name": "CurrentOwnerRole",
+            "type": "uint8"
+          },
+          {
+            "internalType": "bool",
+            "name": "IsPaid",
+            "type": "bool"
+          },
+          {
+            "internalType": "bool",
+            "name": "Exists",
+            "type": "bool"
+          }
+        ],
+        "internalType": "struct SupplyChain.Shipment",
+        "name": "",
+        "type": "tuple"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "getShipmentCounter",
+    "outputs": [
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "shipmentId",
+        "type": "uint256"
+      }
+    ],
+    "name": "getShipmentHash",
+    "outputs": [
+      {
+        "internalType": "bytes32",
+        "name": "",
+        "type": "bytes32"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "shipmentId",
+        "type": "uint256"
+      }
+    ],
+    "name": "getShipmentPrice",
+    "outputs": [
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "shipmentId",
+        "type": "uint256"
+      }
+    ],
+    "name": "payForShipment",
+    "outputs": [],
+    "stateMutability": "payable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "bytes32",
+        "name": "shipmentHash",
+        "type": "bytes32"
+      },
+      {
+        "internalType": "uint256",
+        "name": "price",
+        "type": "uint256"
+      }
+    ],
+    "name": "recordShipment",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "stateMutability": "payable",
+    "type": "receive"
+  }
+]
