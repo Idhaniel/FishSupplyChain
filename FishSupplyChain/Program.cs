@@ -1,10 +1,11 @@
-using System.Text;
 using FishSupplyChain;
 using FishSupplyChain.Data;
 using FishSupplyChain.Services;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
+using System.Reflection;
+using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -47,18 +48,35 @@ builder.Services.AddDbContext<FishSupplyChainDbContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("FishSupplyChainDatabase"));
 });
 
-// Blockchain configuration settings
-builder.Services.Configure<BlockchainSettings>(
-    builder.Configuration.GetSection("BlockchainSettings"));
+// Configuration settings
+builder.Services.Configure<BlockchainSettings>(builder.Configuration.GetSection("BlockchainSettings"));
+builder.Services.Configure<HiveMQqtSettings>(builder.Configuration.GetSection("HiveMQConnectionSettings"));
+
 builder.Services.AddSingleton<FishSupplyChainContractService>();
 
 // Helper Services
 builder.Services.AddScoped<PasswordHandlerService>();
 builder.Services.AddScoped<JwtService>();
+builder.Services.AddScoped<IEmailService, EmailService>();
+builder.Services.AddScoped<IShipmentService, ShipmentService>();
+
 builder.Services.AddControllers().AddNewtonsoftJson();
 
+// Http Client for IPFS
+builder.Services.AddHttpClient<IIpfsService, IpfsService>();
+
+// Documentation services
 // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
-builder.Services.AddOpenApi();
+builder.Services.AddOpenApi(); 
+builder.Services.AddEndpointsApiExplorer();
+builder.Services.AddSwaggerGen(options =>
+{
+    var xmlFilename = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
+    options.IncludeXmlComments(Path.Combine(AppContext.BaseDirectory, xmlFilename));
+});
+
+// Add the HiveMQtt service
+builder.Services.AddHostedService<HiveMqttService>();
 
 var app = builder.Build();
 
@@ -74,6 +92,8 @@ using (var scope = app.Services.CreateScope())
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
+    app.UseSwagger();
+    app.UseSwaggerUI();
     app.MapOpenApi();
 }
 

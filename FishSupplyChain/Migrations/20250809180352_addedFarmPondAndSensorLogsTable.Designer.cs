@@ -4,6 +4,7 @@ using FishSupplyChain.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace FishSupplyChain.Migrations
 {
     [DbContext(typeof(FishSupplyChainDbContext))]
-    partial class FishSupplyChainDbContextModelSnapshot : ModelSnapshot
+    [Migration("20250809180352_addedFarmPondAndSensorLogsTable")]
+    partial class addedFarmPondAndSensorLogsTable
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -69,12 +72,7 @@ namespace FishSupplyChain.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("UserId")
-                        .HasColumnType("int");
-
                     b.HasKey("Id");
-
-                    b.HasIndex("UserId");
 
                     b.ToTable("Farms", (string)null);
                 });
@@ -93,6 +91,9 @@ namespace FishSupplyChain.Migrations
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("SensorId")
+                        .HasColumnType("int");
 
                     b.HasKey("Id");
 
@@ -299,17 +300,6 @@ namespace FishSupplyChain.Migrations
                     b.Navigation("User");
                 });
 
-            modelBuilder.Entity("FishSupplyChain.Entities.FishFarmEntity", b =>
-                {
-                    b.HasOne("FishSupplyChain.Entities.UserEntity", "User")
-                        .WithMany("Farms")
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("User");
-                });
-
             modelBuilder.Entity("FishSupplyChain.Entities.FishPondEntity", b =>
                 {
                     b.HasOne("FishSupplyChain.Entities.FishFarmEntity", "FishFarm")
@@ -398,8 +388,6 @@ namespace FishSupplyChain.Migrations
 
             modelBuilder.Entity("FishSupplyChain.Entities.UserEntity", b =>
                 {
-                    b.Navigation("Farms");
-
                     b.Navigation("Wallet")
                         .IsRequired();
                 });

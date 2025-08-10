@@ -4,6 +4,7 @@ using FishSupplyChain.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace FishSupplyChain.Migrations
 {
     [DbContext(typeof(FishSupplyChainDbContext))]
-    partial class FishSupplyChainDbContextModelSnapshot : ModelSnapshot
+    [Migration("20250730222549_AddedPasswordResetTokens")]
+    partial class AddedPasswordResetTokens
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -51,54 +54,6 @@ namespace FishSupplyChain.Migrations
                     b.HasIndex("UserId");
 
                     b.ToTable("EmailVerifications");
-                });
-
-            modelBuilder.Entity("FishSupplyChain.Entities.FishFarmEntity", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<string>("Location")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("UserId")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("UserId");
-
-                    b.ToTable("Farms", (string)null);
-                });
-
-            modelBuilder.Entity("FishSupplyChain.Entities.FishPondEntity", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<int>("FishFarmId")
-                        .HasColumnType("int");
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("FishFarmId");
-
-                    b.ToTable("Ponds", (string)null);
                 });
 
             modelBuilder.Entity("FishSupplyChain.Entities.PasswordResetTokenEntity", b =>
@@ -167,58 +122,6 @@ namespace FishSupplyChain.Migrations
                     b.HasIndex("UserId");
 
                     b.ToTable("RefreshTokens");
-                });
-
-            modelBuilder.Entity("FishSupplyChain.Entities.SensorEntity", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<int>("PondId")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("PondId")
-                        .IsUnique();
-
-                    b.ToTable("Sensors", (string)null);
-                });
-
-            modelBuilder.Entity("FishSupplyChain.Entities.SensorReadingEntity", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<double>("Humidity")
-                        .HasColumnType("float");
-
-                    b.Property<decimal>("OxygenLevel")
-                        .HasColumnType("decimal(5, 2)");
-
-                    b.Property<decimal>("PHLevel")
-                        .HasColumnType("decimal(3, 2)");
-
-                    b.Property<int>("SensorId")
-                        .HasColumnType("int");
-
-                    b.Property<decimal>("Temperature")
-                        .HasColumnType("decimal(5, 2)");
-
-                    b.Property<DateTime>("Timestamp")
-                        .HasColumnType("datetime2");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("SensorId");
-
-                    b.ToTable("SensorReadings", (string)null);
                 });
 
             modelBuilder.Entity("FishSupplyChain.Entities.UserEntity", b =>
@@ -299,29 +202,6 @@ namespace FishSupplyChain.Migrations
                     b.Navigation("User");
                 });
 
-            modelBuilder.Entity("FishSupplyChain.Entities.FishFarmEntity", b =>
-                {
-                    b.HasOne("FishSupplyChain.Entities.UserEntity", "User")
-                        .WithMany("Farms")
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("User");
-                });
-
-            modelBuilder.Entity("FishSupplyChain.Entities.FishPondEntity", b =>
-                {
-                    b.HasOne("FishSupplyChain.Entities.FishFarmEntity", "FishFarm")
-                        .WithMany("Ponds")
-                        .HasForeignKey("FishFarmId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired()
-                        .HasConstraintName("FK_Pond_FishFarm");
-
-                    b.Navigation("FishFarm");
-                });
-
             modelBuilder.Entity("FishSupplyChain.Entities.PasswordResetTokenEntity", b =>
                 {
                     b.HasOne("FishSupplyChain.Entities.UserEntity", "User")
@@ -344,30 +224,6 @@ namespace FishSupplyChain.Migrations
                     b.Navigation("User");
                 });
 
-            modelBuilder.Entity("FishSupplyChain.Entities.SensorEntity", b =>
-                {
-                    b.HasOne("FishSupplyChain.Entities.FishPondEntity", "Pond")
-                        .WithOne("Sensor")
-                        .HasForeignKey("FishSupplyChain.Entities.SensorEntity", "PondId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired()
-                        .HasConstraintName("FK_Sensor_FishPond");
-
-                    b.Navigation("Pond");
-                });
-
-            modelBuilder.Entity("FishSupplyChain.Entities.SensorReadingEntity", b =>
-                {
-                    b.HasOne("FishSupplyChain.Entities.SensorEntity", "Sensor")
-                        .WithMany("Readings")
-                        .HasForeignKey("SensorId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired()
-                        .HasConstraintName("FK_SensorReading_Sensor");
-
-                    b.Navigation("Sensor");
-                });
-
             modelBuilder.Entity("FishSupplyChain.Entities.WalletEntity", b =>
                 {
                     b.HasOne("FishSupplyChain.Entities.UserEntity", "User")
@@ -380,26 +236,8 @@ namespace FishSupplyChain.Migrations
                     b.Navigation("User");
                 });
 
-            modelBuilder.Entity("FishSupplyChain.Entities.FishFarmEntity", b =>
-                {
-                    b.Navigation("Ponds");
-                });
-
-            modelBuilder.Entity("FishSupplyChain.Entities.FishPondEntity", b =>
-                {
-                    b.Navigation("Sensor")
-                        .IsRequired();
-                });
-
-            modelBuilder.Entity("FishSupplyChain.Entities.SensorEntity", b =>
-                {
-                    b.Navigation("Readings");
-                });
-
             modelBuilder.Entity("FishSupplyChain.Entities.UserEntity", b =>
                 {
-                    b.Navigation("Farms");
-
                     b.Navigation("Wallet")
                         .IsRequired();
                 });

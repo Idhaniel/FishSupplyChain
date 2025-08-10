@@ -47,21 +47,24 @@ namespace FishSupplyChain.Services
             return transactionReceipt.TransactionHash;
         }
 
-        public static byte[] HexStringToByteArray(string hex)
-        {
-            if (hex.StartsWith("0x"))
-                hex = hex.Substring(2);
+        //******************************Unnecessary now *******************************************//////
+        //public static byte[] HexStringToByteArray(string hex)
+        //{
+        //    if (hex.StartsWith("0x"))
+        //        hex = hex.Substring(2);
 
-            if (hex.Length != 64)
-                throw new ArgumentException("Hex string must be exactly 32 bytes (64 hex chars)");
+        //    if (hex.Length != 64)
+        //        throw new ArgumentException("Hex string must be exactly 32 bytes (64 hex chars)");
 
-            return Enumerable.Range(0, hex.Length / 2)
-                .Select(i => Convert.ToByte(hex.Substring(i * 2, 2), 16))
-                .ToArray();
-        }
+        //    return Enumerable.Range(0, hex.Length / 2)
+        //        .Select(i => Convert.ToByte(hex.Substring(i * 2, 2), 16))
+        //        .ToArray();
+        //}
+        //******************************Unnecessary now *******************************************//////
+
 
         // Record a shipment in the supply chain
-        public async Task<string> RecordShipmentAsync(string pk, string shipmentHashHex, decimal price)
+        public async Task<string> RecordShipmentAsync(string pk, byte[] shipmentHash, decimal price)
         {
             // Connect to the blockchain using the user's private key
             var userAccount = new Account(pk);
@@ -69,10 +72,11 @@ namespace FishSupplyChain.Services
             
             // Prepare the calldata
             var priceInWei = Web3.Convert.ToWei(price);
-            byte[] shipmentHashBytes = HexStringToByteArray(shipmentHashHex);
+            //byte[] shipmentHashBytes = HexStringToByteArray(shipmentHashHex);
             RecordShipmentFunction recordShipmentMessage = new()
             {      
-                ShipmentHash = shipmentHashBytes,
+                //ShipmentHash = shipmentHashBytes,
+                ShipmentHash = shipmentHash,
                 Price = priceInWei
             };
 

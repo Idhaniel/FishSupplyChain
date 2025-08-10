@@ -1,14 +1,16 @@
 @FishSupplyChain_HostAddress = http://localhost:5137
 
+////////////////////AUTHENTICATION////////////////////
 // Sign Up 
 POST {{FishSupplyChain_HostAddress}}/api/auth/signup
 Accept: application/json
 Content-Type: application/json
+
 {
-  "email": "daniel@dev.com",
-  "password": "daniel",
-  "firstName": "daniel",
-  "lastName": "dev"
+  "email": "iyohajoy@gmail.com",
+  "password": "iyoha",
+  "firstName": "joy",
+  "lastName": "fool"
 }
 ###
 
@@ -16,22 +18,91 @@ Content-Type: application/json
 POST {{FishSupplyChain_HostAddress}}/api/auth/signin
 Accept: application/json
 Content-Type: application/json
+
 {
-  "email": "benita@gmail.com",
-  "password": "benita"
+  "email": "moyin@gmail.com",
+  "password": "moyin"
 }
 ###
 
+// Verify Email
+GET {{FishSupplyChain_HostAddress}}/api/auth/verify-email?token=FLgjMbmkVt4XBOVCSKL7PYyXyd4ETM2NzYsnKfQDSSODuOQHh3C32gDz86T2fdPsOGbSQTmSx2R82t56YzphrA%3D%3D
+Accept: application/json
+Content-Type: application/json
+###
+
+// Refresh Token
+POST {{FishSupplyChain_HostAddress}}/api/auth/refresh
+Accept: application/json
+Content-Type: application/json
+###
+
+// Logout
+GET {{FishSupplyChain_HostAddress}}/api/auth/logout
+Accept: application/json
+Content-Type: application/json
+###
+
+// Resend Verification Email
+POST {{FishSupplyChain_HostAddress}}/api/auth/resend-verification
+Accept: application/json
+Content-Type: application/json
+
+{
+  "email": "moyin@gmail.com"
+}
+###
+
+// Forgot Password
+POST {{FishSupplyChain_HostAddress}}/api/auth/forgot-password
+Accept: application/json
+Content-Type: application/json
+
+{
+  "email": "iyohajoy@gmail.com"
+}
+###
+
+// Reset Password
+POST {{FishSupplyChain_HostAddress}}/api/auth/reset-password
+Accept: application/json
+Content-Type: application/json
+
+{
+  "token": "JvzKWQl46tgR40Qrj3DRO8ml7KbhH0iiBiu5nodXF8DAazzpqvDeB%2FhU8%2BmVIDZG6sWU0O7bN2PKWHg4I9s5sA%3D%3D.",
+  "newPassword": "newPassword"
+}
+###
+
+//////////////////CONTRACTS////////////////////
 // Assign Role
 POST {{FishSupplyChain_HostAddress}}/api/contract/assign
 Accept: application/json
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1laWQiOiIzIiwiZW1haWwiOiJiZW5pdGFAZ21haWwuY29tIiwibmJmIjoxNzUzNTY1MzA1LCJleHAiOjE3NTM1NjcxMDUsImlhdCI6MTc1MzU2NTMwNSwiaXNzIjoiaHR0cDovL2xvY2FsaG9zdDo1MTM3IiwiYXVkIjoiaHR0cDovL2xvY2FsaG9zdDo1MTM3In0.XExBv79GdAyDmhtceSjbdw8cNpeFW9sG1c8jSenVzoA
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1laWQiOiIzMSIsImVtYWlsIjoibW95aW5AZ21haWwuY29tIiwibmJmIjoxNzU0ODQ3MjkwLCJleHAiOjE3NTQ4NDkwOTAsImlhdCI6MTc1NDg0NzI5MCwiaXNzIjoiaHR0cDovL2xvY2FsaG9zdDo1MTM3IiwiYXVkIjoiaHR0cDovL2xvY2FsaG9zdDo1MTM3In0.b0quTQQhNAk8Z0sbBscqyMUBsK4DY-Fix0yKzBzT7kg
 
 {
   "participant": "0x3C44CdDdB6a900fa2b585dd299e03d12FA4293BC",
-  "roleInt": "2"
+  "role": "2"
 }
+
+###
+
+// Create shipment
+POST {{FishSupplyChain_HostAddress}}/api/shipments
+Accept: application/json
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1laWQiOiIzMSIsImVtYWlsIjoibW95aW5AZ21haWwuY29tIiwibmJmIjoxNzU0ODUwMjg2LCJleHAiOjE3NTQ4NTIwODYsImlhdCI6MTc1NDg1MDI4NiwiaXNzIjoiaHR0cDovL2xvY2FsaG9zdDo1MTM3IiwiYXVkIjoiaHR0cDovL2xvY2FsaG9zdDo1MTM3In0.qAU_qET23sqGYZ5XWTPrabIDSsKtsndyzqNzmmsPp2Y
+
+{
+  "pondId": 6,
+  "startTime": "2025-08-06T12:34:56Z",
+  "endTime": "2025-08-10T10:00:00Z",
+  "price": 5.2,
+  "notes": "Harvested at sunrise, quality grade A",
+  "harvestTime": "2025-08-10T07:30:00Z"
+}
+
 
 ###
 
@@ -65,7 +136,7 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1laWQiOiIzIiwiZ
 GET {{FishSupplyChain_HostAddress}}/api/contract/shipment
 Accept: application/json
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1laWQiOiI1IiwiZW1haWwiOiJsdW1hbmlAZ21haWwuY29tIiwibmJmIjoxNzUzNTY0ODEzLCJleHAiOjE3NTM1NjY2MTMsImlhdCI6MTc1MzU2NDgxMywiaXNzIjoiaHR0cDovL2xvY2FsaG9zdDo1MTM3IiwiYXVkIjoiaHR0cDovL2xvY2FsaG9zdDo1MTM3In0.zpsmcqQclVUqH-4PhK5YqxvCpW1DRM4vUU0sTxTl1ZQ
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1laWQiOiIzMSIsImVtYWlsIjoibW95aW5AZ21haWwuY29tIiwibmJmIjoxNzU0ODQ3MjkwLCJleHAiOjE3NTQ4NDkwOTAsImlhdCI6MTc1NDg0NzI5MCwiaXNzIjoiaHR0cDovL2xvY2FsaG9zdDo1MTM3IiwiYXVkIjoiaHR0cDovL2xvY2FsaG9zdDo1MTM3In0.b0quTQQhNAk8Z0sbBscqyMUBsK4DY-Fix0yKzBzT7kg
 
 ###
 
@@ -73,7 +144,7 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1laWQiOiI1IiwiZ
 GET {{FishSupplyChain_HostAddress}}/api/contract/shipment/hash/1
 Accept: application/json
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1laWQiOiI1IiwiZW1haWwiOiJsdW1hbmlAZ21haWwuY29tIiwibmJmIjoxNzUzNTY0ODEzLCJleHAiOjE3NTM1NjY2MTMsImlhdCI6MTc1MzU2NDgxMywiaXNzIjoiaHR0cDovL2xvY2FsaG9zdDo1MTM3IiwiYXVkIjoiaHR0cDovL2xvY2FsaG9zdDo1MTM3In0.zpsmcqQclVUqH-4PhK5YqxvCpW1DRM4vUU0sTxTl1ZQ
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1laWQiOiIzMSIsImVtYWlsIjoibW95aW5AZ21haWwuY29tIiwibmJmIjoxNzU0ODQ3MjkwLCJleHAiOjE3NTQ4NDkwOTAsImlhdCI6MTc1NDg0NzI5MCwiaXNzIjoiaHR0cDovL2xvY2FsaG9zdDo1MTM3IiwiYXVkIjoiaHR0cDovL2xvY2FsaG9zdDo1MTM3In0.b0quTQQhNAk8Z0sbBscqyMUBsK4DY-Fix0yKzBzT7kg
 
 ###
 
@@ -94,9 +165,34 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1laWQiOiI1IiwiZ
 ###
 
 // Get Role
-GET {{FishSupplyChain_HostAddress}}/api/contract/role/0x3C44CdDdB6a900fa2b585dd299e03d12FA4293BC
+GET {{FishSupplyChain_HostAddress}}/api/contract/role/0x9965507D1a55bcC2695C58ba16FB37d819B0A4dc
 Accept: application/json
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1laWQiOiI1IiwiZW1haWwiOiJsdW1hbmlAZ21haWwuY29tIiwibmJmIjoxNzUzNTY0ODEzLCJleHAiOjE3NTM1NjY2MTMsImlhdCI6MTc1MzU2NDgxMywiaXNzIjoiaHR0cDovL2xvY2FsaG9zdDo1MTM3IiwiYXVkIjoiaHR0cDovL2xvY2FsaG9zdDo1MTM3In0.zpsmcqQclVUqH-4PhK5YqxvCpW1DRM4vUU0sTxTl1ZQ
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1laWQiOiIzMSIsImVtYWlsIjoibW95aW5AZ21haWwuY29tIiwibmJmIjoxNzU0ODQ3MjkwLCJleHAiOjE3NTQ4NDkwOTAsImlhdCI6MTc1NDg0NzI5MCwiaXNzIjoiaHR0cDovL2xvY2FsaG9zdDo1MTM3IiwiYXVkIjoiaHR0cDovL2xvY2FsaG9zdDo1MTM3In0.b0quTQQhNAk8Z0sbBscqyMUBsK4DY-Fix0yKzBzT7kg
 
 ###
+
+///////////////////////Users Profile///////////////////////
+// Update User Profile
+PATCH {{FishSupplyChain_HostAddress}}/api/users/profile
+Accept: application/json
+Content-Type: application/json
+Authorization: Bearer 
+
+{
+  "firstname": "UpdatedFirstName",
+  "lastname": "UpdatedLastName"
+}
+###
+
+// Change Password
+PATCH {{FishSupplyChain_HostAddress}}/api/users/change-password
+Accept: application/json
+Content-Type: application/json
+Authorization: Bearer
+
+{
+  "currentPassword": "currentPassword",
+  "newPassword": "newPassword",
+  "confirmNewPassword": "confirmNewPassword"
+}

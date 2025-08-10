@@ -2,15 +2,42 @@ Make sure shipment Ids are never negative
 Handle contract errors
 Handle contract events
 Make roles text-based
-Add more authentication schemes
+
 Allow for user profile pictures
-Confirm password
-Reset password
-Verify Email
+
+
 Add roles to user tables
-Set up MQTT Client and Broker
 Securely save private keys
-Link to IPFS
+
 QR Code
-Clean and organize streams from sensors
+
 Web socket connections???
+
+Restrict XML
+Use Repository Pattern
+Payment into wallets and all
+
+
+// Websocket
+// Notification service
+// Logs from sensors break when unexpected data is received. JsonSchema.Net. If sensors isnt registered, also breaks
+// Validate every user input wella. roleInt to role in assignRoleDto didnt throw error but caused problems since I thought I was deadass still assigning role, but was defaulted to unassigned
+
+
+
+Done*************
+Set up MQTT Client and Broker 
+Clean and organize streams from sensors // By default already
+Add more authentication schemes // No need, JWT is sufficient
+Reset password
+Verify Email 
+Update Profile 
+Farm Name, Location, Number of Ponds, Primary water source
+Pond Name, Species, Number of fish stocks
+Link to IPFS
+
+
+/////////Considerations
+JwtService -> only for creating access/refresh tokens.
+RefreshTokenService -> handles token lookup, revocation, replacement, storage, etc.
+

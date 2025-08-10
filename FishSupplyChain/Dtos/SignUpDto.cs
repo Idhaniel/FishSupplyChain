@@ -12,9 +12,13 @@ namespace FishSupplyChain.Dtos
         public string Password { get; set; }
 
         [Required(ErrorMessage = "Provide first name")]
+        [MinLength(3, ErrorMessage = "First name should not be less than 3 characters")]
+        [MaxLength(50, ErrorMessage = "First name should not be more than 50 characters")]
         public string FirstName { get; set; }
 
         [Required(ErrorMessage = "Provide last name")]
+        [MinLength(3, ErrorMessage = "Last name should not be less than 3 characters")]
+        [MaxLength(50, ErrorMessage = "Last name should not be more than 50 characters")]
         public string LastName { get; set; }
     }
 }

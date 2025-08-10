@@ -6,7 +6,6 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System.Numerics;
 using System.Security.Claims;
-using static NBitcoin.Scripting.OutputDescriptor;
 
 namespace FishSupplyChain.Controllers
 {
@@ -51,6 +50,19 @@ namespace FishSupplyChain.Controllers
             return Ok(new SuccessResponseDto<string> { StatusCode = StatusCodes.Status200OK, Data = hash });
         }
 
+        //******************************Redundant Was used in Dev******************///
+        public static byte[] HexStringToByteArray(string hex)
+        {
+            if (hex.StartsWith("0x"))
+                hex = hex.Substring(2);
+
+            if (hex.Length != 64)
+                throw new ArgumentException("Hex string must be exactly 32 bytes (64 hex chars)");
+
+            return [.. Enumerable.Range(0, hex.Length / 2).Select(i => Convert.ToByte(hex.Substring(i * 2, 2), 16))];
+        }
+        //******************************Redundant Was used in Dev******************///
+
         // Record shipment
         [HttpPost("record")]
         public async Task<ActionResult<ApiResponseDto>> RecordShipment([FromBody] RecordShipmentDto request)
@@ -73,8 +85,8 @@ namespace FishSupplyChain.Controllers
                 return NotFound(new ErrorResponseDto<string> { Errors = "User pk not found", StatusCode = StatusCodes.Status404NotFound });
             }
             Console.WriteLine(pk);
-            //byte[] shipmentHash = HexStringToByteArray(request.ShipmentHash);
-            string hash = await contractService.RecordShipmentAsync(pk, request.ShipmentHash, request.Price);
+            byte[] shipmentHash = HexStringToByteArray(request.ShipmentHash);
+            string hash = await contractService.RecordShipmentAsync(pk, shipmentHash, request.Price);
             return Ok(new SuccessResponseDto<string> { StatusCode = StatusCodes.Status200OK, Data = hash });
         }
 

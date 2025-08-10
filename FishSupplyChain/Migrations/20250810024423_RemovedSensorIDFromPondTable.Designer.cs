@@ -4,6 +4,7 @@ using FishSupplyChain.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace FishSupplyChain.Migrations
 {
     [DbContext(typeof(FishSupplyChainDbContext))]
-    partial class FishSupplyChainDbContextModelSnapshot : ModelSnapshot
+    [Migration("20250810024423_RemovedSensorIDFromPondTable")]
+    partial class RemovedSensorIDFromPondTable
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

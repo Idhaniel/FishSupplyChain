@@ -18,9 +18,9 @@ namespace FishSupplyChain.Data.Config
             builder.Property(w => w.SeedPhrase).HasColumnType("nvarchar(max)");
 
             builder.HasOne(w => w.User)
-                .WithOne(u => u.Wallet)
-                .HasForeignKey<WalletEntity>(w => w.UserId)
-                .HasConstraintName("FK_Wallet_User");
+                   .WithOne(u => u.Wallet)
+                   .HasForeignKey<WalletEntity>(w => w.UserId)
+                   .HasConstraintName("FK_Wallet_User");
         }
     }
 }
